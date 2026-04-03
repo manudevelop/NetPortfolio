@@ -1,0 +1,115 @@
+# .NET
+bin/
+obj/
+*.dll
+*.exe
+*.pdb
+*.cache
+*.log
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Visual Studio
+.vs/
+*.user
+*.userosscache
+*.sln.docstates
+*.rsuser
+*.suo
+*.userprefs
+*.psess
+*.vsp
+*.vspx
+*.pgd
+.rpsproj
+.vspscc
+.vspscc
+.vsconfig
+
+# Rider
+.idea/
+*.DotSettings.user
+
+# NuGet
+*.nupkg
+.nuget/
+project.lock.json
+project.fragment.lock.json
+packages/
+!**/packages/build/
+
+# Package Files
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Azure
+*.azurePubxml
+.azurePubxml
+
+# Logs
+*.log
+
+# UWP
+AppPackages/
+BundleArtifacts/
+*.appx
+*.appxbundle
+*.appxupload
+
+# macOS
+.DS_Store
+*.dSYM
+*.dSYM/
+*.hmap
+*.ipa
+
+# iOS
+*.mobileprovision
+*.orig
+DerivedData/
+*.xcarchive
+*.xcframework
+
+# Android
+android/app/build/
+android/build/
+android/project Files/
+*.apk
+*.aab
+*.dex
+
+# Blazor WebAssembly
+wwwroot/
+
+# Test Results
+TestResults/
+coverage/
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Builds
+publish/
+out/
+
+# Runtime
+npm/
+node_modules/
