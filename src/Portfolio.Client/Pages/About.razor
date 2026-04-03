@@ -1,0 +1,298 @@
+@page "/about"
+@inject IPortfolioDataService DataService
+
+<PageTitle>About | Manuel David</PageTitle>
+
+<div class="about-page">
+    <section class="about-hero container">
+        <div class="section-header">
+            <span class="section-label">01</span>
+            <h1 class="section-title">Sobre Mí</h1>
+        </div>
+    </section>
+    
+    <section class="about-content container">
+        <div class="content-grid">
+            <div class="profile-card">
+                <div class="profile-image">
+                    <img src="images/profile.jpg" alt="Manuel David Ruiz Rubio" class="profile-photo" />
+                    <div class="image-placeholder">
+                        <svg width="80" height="80" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                        </svg>
+                    </div>
+                    <div class="profile-glow"></div>
+                </div>
+                <div class="profile-info">
+                    <h2 class="profile-name">Manuel David Ruiz Rubio</h2>
+                    <span class="profile-title">Software Architect</span>
+                    <span class="profile-location">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                        </svg>
+                        Córdoba, España
+                    </span>
+                </div>
+            </div>
+            
+            <div class="bio-content">
+                <div class="bio-text">
+                    <p>
+                        Senior Software Engineer con más de <span class="highlight">14 años de experiencia</span> transformando sistemas críticos 
+                        y modernizando arquitecturas monolíticas hacia ecosistemas distribuidos de alto rendimiento.
+                    </p>
+                    <p>
+                        Especialista en el diseño de APIs bajo estándares OAS y en garantizar la integridad de datos 
+                        en entornos de alta concurrencia. Enfocado en crear soluciones escalables, seguras y alineadas 
+                        con los objetivos de negocio.
+                    </p>
+                    <p>
+                        Actualmente lidero la evolución tecnológica en <strong>Subbética de Informática</strong>, donde he 
+                        liderado la transición de un núcleo monolítico hacia una arquitectura orientada a servicios (SOA).
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="skills-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">02</span>
+                <h2 class="section-title">Stack Técnico</h2>
+            </div>
+            
+            <div class="skills-grid">
+                @foreach (var category in _skillsByCategory)
+                {
+                    <div class="skill-category">
+                        <h3 class="category-name">@category.Key</h3>
+                        <div class="skill-list">
+                            @foreach (var skill in category.Value)
+                            {
+                                <div class="skill-item">
+                                    <span class="skill-name">@skill.Name</span>
+                                    <div class="skill-bar">
+                                        <div class="skill-fill" style="width: @(skill.Level * 20)%"></div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+</div>
+
+@code {
+    private PortfolioData? _data;
+    private Dictionary<string, IEnumerable<Skill>> _skillsByCategory = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        _data = await DataService.GetDataAsync();
+        if (_data?.Skills is { } skills)
+        {
+            _skillsByCategory = skills
+                .GroupBy(s => s.Category)
+                .ToDictionary(g => g.Key, g => g.AsEnumerable());
+        }
+    }
+}
+
+<style>
+    .about-page {
+        padding: var(--spacing-3xl) 0;
+    }
+
+    .section-header {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-lg);
+        margin-bottom: var(--spacing-2xl);
+    }
+
+    .section-label {
+        font-family: var(--font-display);
+        font-size: 0.875rem;
+        color: var(--color-accent);
+        padding: var(--spacing-sm) var(--spacing-md);
+        background: rgba(34, 211, 238, 0.1);
+        border: 1px solid rgba(34, 211, 238, 0.2);
+        border-radius: var(--radius-md);
+    }
+
+    .section-title {
+        font-size: clamp(1.75rem, 4vw, 2.5rem);
+        color: var(--color-text);
+    }
+
+    .content-grid {
+        display: grid;
+        grid-template-columns: 300px 1fr;
+        gap: var(--spacing-3xl);
+        margin-bottom: var(--spacing-4xl);
+    }
+
+    .profile-card {
+        position: relative;
+    }
+
+    .profile-image {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 1;
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+    }
+
+    .profile-photo {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 1;
+    }
+
+    .image-placeholder {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--color-text-muted);
+        background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-bg-elevated) 100%);
+    }
+
+    .profile-glow {
+        position: absolute;
+        inset: -50%;
+        background: conic-gradient(from 0deg, transparent, var(--color-accent), transparent);
+        animation: rotate 4s linear infinite;
+        opacity: 0.3;
+    }
+
+    .profile-info {
+        margin-top: var(--spacing-lg);
+        text-align: center;
+    }
+
+    .profile-name {
+        font-size: 1.25rem;
+        color: var(--color-text);
+        margin-bottom: var(--spacing-xs);
+    }
+
+    .profile-title {
+        display: block;
+        font-family: var(--font-display);
+        font-size: 0.875rem;
+        color: var(--color-accent);
+        margin-bottom: var(--spacing-sm);
+    }
+
+    .profile-location {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--spacing-xs);
+        font-size: 0.875rem;
+        color: var(--color-text-muted);
+    }
+
+    .bio-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .bio-text {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-lg);
+    }
+
+    .bio-text p {
+        font-size: 1.0625rem;
+        color: var(--color-text-secondary);
+        line-height: 1.8;
+    }
+
+    .highlight {
+        color: var(--color-accent);
+        font-weight: 600;
+    }
+
+    .bio-text strong {
+        color: var(--color-text);
+    }
+
+    .skills-section {
+        padding: var(--spacing-3xl) 0;
+        background: var(--color-surface);
+        border-top: 1px solid var(--color-border);
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: var(--spacing-xl);
+    }
+
+    .skill-category {
+        padding: var(--spacing-lg);
+        background: var(--color-bg);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-lg);
+        transition: all var(--transition-base);
+    }
+
+    .skill-category:hover {
+        border-color: var(--color-accent);
+        box-shadow: var(--shadow-glow);
+    }
+
+    .category-name {
+        font-size: 1rem;
+        color: var(--color-accent);
+        margin-bottom: var(--spacing-lg);
+        padding-bottom: var(--spacing-sm);
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .skill-list {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-md);
+    }
+
+    .skill-item {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-xs);
+    }
+
+    .skill-name {
+        font-size: 0.875rem;
+        color: var(--color-text);
+    }
+
+    .skill-bar {
+        height: 4px;
+        background: var(--color-border);
+        border-radius: var(--radius-full);
+        overflow: hidden;
+    }
+
+    .skill-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--color-accent), var(--color-accent-warm));
+        border-radius: var(--radius-full);
+        transition: width var(--transition-slow);
+    }
+</style>

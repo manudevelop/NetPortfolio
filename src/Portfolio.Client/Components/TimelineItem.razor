@@ -1,0 +1,27 @@
+<div class="timeline-item">
+    <div class="timeline-marker"></div>
+    <div class="timeline-content">
+        <div class="timeline-header">
+            <div>
+                <h3 class="role">@Experience.Role</h3>
+                <p class="company">@Experience.Company</p>
+            </div>
+            <div class="timeline-dates">
+                <span>@Experience.StartDate.ToString("MMM yyyy")</span>
+                <span class="separator">-</span>
+                <span>@(Experience.EndDate?.ToString("MMM yyyy") ?? "Actualidad")</span>
+            </div>
+        </div>
+        <p class="description">@Experience.Description</p>
+        <ul class="achievements">
+            @foreach (var achievement in Experience.Achievements)
+            {
+                <li>@achievement</li>
+            }
+        </ul>
+    </div>
+</div>
+
+@code {
+    [Parameter] public WorkExperience Experience { get; set; } = default!;
+}

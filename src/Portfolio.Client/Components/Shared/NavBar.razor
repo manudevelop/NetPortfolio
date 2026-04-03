@@ -1,0 +1,44 @@
+@inject IPortfolioDataService DataService
+
+<nav class="navbar">
+    <div class="navbar-container">
+        <a href="/" class="navbar-brand">
+            <span class="brand-mark">M</span>
+        </a>
+        
+        <button class="navbar-toggler" @onclick="ToggleNav" aria-label="Toggle navigation">
+            <span class="toggler-line"></span>
+            <span class="toggler-line"></span>
+        </button>
+
+        <div class="navbar-menu @NavCssClass">
+            <NavLink href="/" Match="NavLinkMatch.All" class="nav-link">
+                <span class="nav-num">01</span>
+                <span class="nav-text">Home</span>
+            </NavLink>
+            <NavLink href="/about" class="nav-link">
+                <span class="nav-num">02</span>
+                <span class="nav-text">About</span>
+            </NavLink>
+            <NavLink href="/projects" class="nav-link">
+                <span class="nav-num">03</span>
+                <span class="nav-text">Work</span>
+            </NavLink>
+            <NavLink href="/experience" class="nav-link">
+                <span class="nav-num">04</span>
+                <span class="nav-text">Experience</span>
+            </NavLink>
+            <NavLink href="/contact" class="nav-link">
+                <span class="nav-num">05</span>
+                <span class="nav-text">Contact</span>
+            </NavLink>
+        </div>
+    </div>
+</nav>
+
+@code {
+    private bool _isNavOpen;
+    private string? NavCssClass => _isNavOpen ? "open" : null;
+
+    private void ToggleNav() => _isNavOpen = !_isNavOpen;
+}

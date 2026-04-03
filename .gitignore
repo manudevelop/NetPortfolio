@@ -6,6 +6,7 @@ obj/
 *.pdb
 *.cache
 *.log
+skills-lock.json
 
 # Build results
 [Dd]ebug/
@@ -85,6 +86,7 @@ DerivedData/
 *.xcarchive
 *.xcframework
 
+
 # Android
 android/app/build/
 android/build/
@@ -94,7 +96,10 @@ android/project Files/
 *.dex
 
 # Blazor WebAssembly
-wwwroot/
+.agents/
+.dotnet/
+.content/
+
 
 # Test Results
 TestResults/

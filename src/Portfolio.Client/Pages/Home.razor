@@ -1,0 +1,237 @@
+@page "/"
+@inject IPortfolioDataService DataService
+
+<PageTitle>Manuel David | Senior .NET Developer</PageTitle>
+
+<div class="hero">
+    <div class="hero-content container">
+        <div class="hero-label animate-fade-in-up">
+            <span class="label-line"></span>
+            <span class="label-text">Senior Software Engineer</span>
+        </div>
+        
+        <h1 class="hero-name animate-fade-in-up stagger-1">
+            @(_data?.Personal.Name ?? "Cargando...")
+        </h1>
+        
+        <div class="hero-title animate-fade-in-up stagger-2">
+            <span class="title-text" id="typewriter"></span>
+            <span class="cursor">|</span>
+        </div>
+        
+        <p class="hero-tagline animate-fade-in-up stagger-3">
+            @_data?.Personal.Tagline
+        </p>
+        
+        <div class="hero-cta animate-fade-in-up stagger-4">
+            <a href="/projects" class="btn-primary">
+                <span>Ver Proyectos</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </a>
+            <a href="/contact" class="btn-secondary">
+                <span>Contactar</span>
+            </a>
+        </div>
+        
+        <div class="hero-tech animate-fade-in-up stagger-5">
+            <span class="tech-label">Tech Stack</span>
+            <div class="tech-grid">
+                @foreach (var tech in _techs)
+                {
+                    <span class="tech-tag">@tech</span>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private PortfolioData? _data;
+    private string[] _techs = { ".NET 8+", "ASP.NET Core", "REST APIs", "Clean Architecture", "SQL Server", "Event-Driven" };
+    private string _typewriterText = "";
+    private int _typewriterIndex = 0;
+    private string _fullText = "";
+    private System.Threading.Timer? _timer;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _data = await DataService.GetDataAsync();
+        if (!string.IsNullOrEmpty(_data?.Personal?.Title))
+        {
+            _fullText = _data.Personal.Title;
+            StartTypewriter();
+        }
+    }
+
+    private void StartTypewriter()
+    {
+        _timer = new System.Threading.Timer(_ =>
+        {
+            if (_typewriterIndex < _fullText.Length)
+            {
+                _typewriterText = _fullText.Substring(0, _typewriterIndex + 1);
+                _typewriterIndex++;
+                InvokeAsync(StateHasChanged);
+            }
+            else
+            {
+                _timer?.Dispose();
+            }
+        }, null, 100, 60);
+    }
+
+    public void Dispose()
+    {
+        _timer?.Dispose();
+    }
+}
+
+<style>
+    .hero {
+        min-height: calc(100vh - 80px);
+        display: flex;
+        align-items: center;
+        position: relative;
+        z-index: 1;
+        padding: var(--spacing-3xl) 0;
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 1;
+        max-width: 800px;
+    }
+
+    .hero-label {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-md);
+        margin-bottom: var(--spacing-lg);
+    }
+
+    .label-line {
+        width: 40px;
+        height: 1px;
+        background: var(--color-accent);
+    }
+
+    .label-text {
+        font-family: var(--font-display);
+        font-size: 0.875rem;
+        color: var(--color-accent);
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+    }
+
+    .hero-name {
+        font-size: clamp(2.5rem, 8vw, 5rem);
+        font-weight: 700;
+        color: var(--color-text);
+        margin-bottom: var(--spacing-md);
+        letter-spacing: -0.03em;
+    }
+
+    .hero-title {
+        font-family: var(--font-display);
+        font-size: clamp(1.25rem, 3vw, 1.75rem);
+        color: var(--color-text-secondary);
+        margin-bottom: var(--spacing-lg);
+        min-height: 2em;
+    }
+
+    .cursor {
+        color: var(--color-accent);
+        animation: blink 1s step-end infinite;
+    }
+
+    .hero-tagline {
+        font-size: 1.125rem;
+        color: var(--color-text-muted);
+        max-width: 500px;
+        margin-bottom: var(--spacing-xl);
+        line-height: 1.7;
+    }
+
+    .hero-cta {
+        display: flex;
+        gap: var(--spacing-md);
+        margin-bottom: var(--spacing-3xl);
+        flex-wrap: wrap;
+    }
+
+    .btn-primary {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--spacing-sm);
+        padding: var(--spacing-md) var(--spacing-xl);
+        background: var(--color-accent);
+        color: var(--color-bg);
+        font-family: var(--font-display);
+        font-size: 0.875rem;
+        font-weight: 600;
+        border-radius: var(--radius-md);
+        transition: all var(--transition-base);
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(34, 211, 238, 0.3);
+        color: var(--color-bg);
+    }
+
+    .btn-secondary {
+        display: inline-flex;
+        align-items: center;
+        padding: var(--spacing-md) var(--spacing-xl);
+        border: 1px solid var(--color-border-light);
+        color: var(--color-text);
+        font-family: var(--font-display);
+        font-size: 0.875rem;
+        font-weight: 500;
+        border-radius: var(--radius-md);
+        transition: all var(--transition-base);
+    }
+
+    .btn-secondary:hover {
+        border-color: var(--color-accent);
+        color: var(--color-accent);
+    }
+
+    .hero-tech {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-md);
+    }
+
+    .tech-label {
+        font-family: var(--font-display);
+        font-size: 0.75rem;
+        color: var(--color-text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+    }
+
+    .tech-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--spacing-sm);
+    }
+
+    .tech-tag {
+        padding: var(--spacing-xs) var(--spacing-md);
+        background: rgba(34, 211, 238, 0.08);
+        border: 1px solid rgba(34, 211, 238, 0.2);
+        border-radius: var(--radius-full);
+        font-family: var(--font-display);
+        font-size: 0.8125rem;
+        color: var(--color-accent);
+        transition: all var(--transition-fast);
+    }
+
+    .tech-tag:hover {
+        background: rgba(34, 211, 238, 0.15);
+        border-color: var(--color-accent);
+    }
+</style>
