@@ -24,6 +24,9 @@ jobs:
       - name: Publish Blazor WASM
         run: dotnet publish src/Portfolio.Client -c Release -o ./publish
 
+      - name: Add .nojekyll
+        run: touch ./publish/wwwroot/.nojekyll
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
