@@ -1,0 +1,240 @@
+@page "/experience"
+@inject IPortfolioDataService DataService
+
+<PageTitle>Experience | Manuel David</PageTitle>
+
+<div class="experience-page">
+    <section class="experience-hero container">
+        <div class="section-header">
+            <span class="section-label">03</span>
+            <h1 class="section-title">Experiencia</h1>
+        </div>
+        <p class="section-description">
+            Más de 14 años diseñando y evolucionando sistemas críticos
+        </p>
+    </section>
+    
+    <section class="timeline-section container">
+        <div class="timeline">
+            @foreach (var (exp, index) in (_data?.Experience ?? Array.Empty<WorkExperience>()).Select((e, i) => (e, i)))
+            {
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <span class="marker-dot"></span>
+                        @if (index < ((_data?.Experience?.Count() ?? 1) - 1))
+                        {
+                            <span class="marker-line"></span>
+                        }
+                    </div>
+                    
+                    <div class="timeline-content">
+                        <div class="exp-card">
+                            <div class="exp-header">
+                                <div class="exp-role-company">
+                                    <h3 class="exp-role">@exp.Role</h3>
+                                    <span class="exp-company">@exp.Company</span>
+                                </div>
+                                <div class="exp-period">
+                                    <span class="period-dates">
+                                        @exp.StartDate.ToString("MMM yyyy") — @(exp.EndDate?.ToString("MMM yyyy") ?? "Actualidad")
+                                    </span>
+                                </div>
+                            </div>
+                            
+                            <p class="exp-description">@exp.Description</p>
+                            
+                            <div class="exp-achievements">
+                                <h4 class="achievements-label">Logros</h4>
+                                <ul class="achievements-list">
+                                    @foreach (var achievement in exp.Achievements)
+                                    {
+                                        <li class="achievement-item">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <polyline points="20 6 9 17 4 12"/>
+                                            </svg>
+                                            <span>@achievement</span>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </section>
+</div>
+
+@code {
+    private PortfolioData? _data;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _data = await DataService.GetDataAsync();
+    }
+}
+
+<style>
+    .experience-page {
+        padding: var(--spacing-3xl) 0;
+    }
+
+    .section-header {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-lg);
+        margin-bottom: var(--spacing-md);
+    }
+
+    .section-label {
+        font-family: var(--font-display);
+        font-size: 0.875rem;
+        color: var(--color-accent);
+        padding: var(--spacing-sm) var(--spacing-md);
+        background: rgba(34, 211, 238, 0.1);
+        border: 1px solid rgba(34, 211, 238, 0.2);
+        border-radius: var(--radius-md);
+    }
+
+    .section-title {
+        font-size: clamp(1.75rem, 4vw, 2.5rem);
+        color: var(--color-text);
+    }
+
+    .section-description {
+        color: var(--color-text-muted);
+        font-size: 1.0625rem;
+        max-width: 600px;
+        margin-bottom: var(--spacing-3xl);
+    }
+
+    .timeline {
+        position: relative;
+        padding-left: var(--spacing-2xl);
+    }
+
+    .timeline-item {
+        position: relative;
+        padding-bottom: var(--spacing-2xl);
+    }
+
+    .timeline-item:last-child {
+        padding-bottom: 0;
+    }
+
+    .timeline-marker {
+        position: absolute;
+        left: calc(-1 * var(--spacing-2xl) - 6px);
+        top: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .marker-dot {
+        width: 12px;
+        height: 12px;
+        background: var(--color-accent);
+        border-radius: 50%;
+        box-shadow: 0 0 12px var(--color-accent-glow);
+    }
+
+    .marker-line {
+        width: 2px;
+        flex: 1;
+        background: linear-gradient(to bottom, var(--color-accent), transparent);
+        margin-top: var(--spacing-sm);
+    }
+
+    .timeline-content {
+        position: relative;
+    }
+
+    .exp-card {
+        padding: var(--spacing-xl);
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-lg);
+        transition: all var(--transition-base);
+    }
+
+    .exp-card:hover {
+        border-color: var(--color-accent);
+        box-shadow: var(--shadow-glow);
+    }
+
+    .exp-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: var(--spacing-lg);
+        flex-wrap: wrap;
+        gap: var(--spacing-md);
+    }
+
+    .exp-role {
+        font-size: 1.25rem;
+        color: var(--color-text);
+        margin-bottom: var(--spacing-xs);
+    }
+
+    .exp-company {
+        font-family: var(--font-display);
+        font-size: 0.9375rem;
+        color: var(--color-accent);
+    }
+
+    .exp-period {
+        display: flex;
+        align-items: center;
+    }
+
+    .period-dates {
+        padding: var(--spacing-xs) var(--spacing-md);
+        background: var(--color-bg);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-full);
+        font-family: var(--font-display);
+        font-size: 0.8125rem;
+        color: var(--color-text-secondary);
+    }
+
+    .exp-description {
+        font-size: 0.9375rem;
+        color: var(--color-text-secondary);
+        line-height: 1.7;
+        margin-bottom: var(--spacing-lg);
+        padding-bottom: var(--spacing-lg);
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .achievements-label {
+        font-family: var(--font-display);
+        font-size: 0.75rem;
+        color: var(--color-text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-bottom: var(--spacing-md);
+    }
+
+    .achievements-list {
+        list-style: none;
+        display: grid;
+        gap: var(--spacing-md);
+    }
+
+    .achievement-item {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--spacing-sm);
+        color: var(--color-text-secondary);
+        font-size: 0.9375rem;
+        line-height: 1.5;
+    }
+
+    .achievement-item svg {
+        flex-shrink: 0;
+        color: var(--color-accent);
+        margin-top: 2px;
+    }
+</style>

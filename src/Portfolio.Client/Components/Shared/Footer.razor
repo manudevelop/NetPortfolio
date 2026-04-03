@@ -1,0 +1,40 @@
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-brand">
+            <span class="brand-mark">M</span>
+            <span class="brand-name">Manuel David</span>
+        </div>
+        
+        <div class="footer-main">
+            <p class="footer-tagline">
+                Construyendo soluciones escalables con .NET
+            </p>
+            <div class="footer-links">
+                <a href="@GitHub" target="_blank" rel="noopener noreferrer" class="footer-link">
+                    <span class="link-text">GitHub</span>
+                    <span class="link-arrow">&rarr;</span>
+                </a>
+                <a href="@LinkedIn" target="_blank" rel="noopener noreferrer" class="footer-link">
+                    <span class="link-text">LinkedIn</span>
+                    <span class="link-arrow">&rarr;</span>
+                </a>
+                <a href="mailto:@Email" class="footer-link">
+                    <span class="link-text">Email</span>
+                    <span class="link-arrow">&rarr;</span>
+                </a>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <span class="copyright">&copy; @Year — Todos los derechos reservados</span>
+            <span class="built-with">Built with Blazor &amp; .NET 8</span>
+        </div>
+    </div>
+</footer>
+
+@code {
+    private string Email => "manolo.developer@gmail.com";
+    private string GitHub => "https://github.com/manolodeveloper";
+    private string LinkedIn => "https://linkedin.com/in/manolodeveloper";
+    private int Year => DateTime.Now.Year;
+}

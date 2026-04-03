@@ -1,0 +1,351 @@
+@page "/contact"
+@inject IPortfolioDataService DataService
+
+<PageTitle>Contact | Manuel David</PageTitle>
+
+<div class="contact-page">
+    <section class="contact-hero container">
+        <div class="section-header">
+            <span class="section-label">04</span>
+            <h1 class="section-title">Contacto</h1>
+        </div>
+        <p class="section-description">
+            ¿Tienes un proyecto en mente? Hablemos.
+        </p>
+    </section>
+    
+    <section class="contact-content container">
+        <div class="contact-grid">
+            <div class="contact-info">
+                <div class="info-card">
+                    <div class="info-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M0 3v18h24v-18h-24zm21.518 2l-9.518 7.713-9.518-7.713h19.036zm-19.518 14v-11.817l10 8.104 10-8.104v11.817h-20z"/>
+                        </svg>
+                    </div>
+                    <div class="info-content">
+                        <span class="info-label">Email</span>
+                        <a href="@($"mailto:{_personal?.Email}")" class="info-value">@_personal?.Email</a>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                        </svg>
+                    </div>
+                    <div class="info-content">
+                        <span class="info-label">Ubicación</span>
+                        <span class="info-value">@_personal?.Location</span>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                        </svg>
+                    </div>
+                    <div class="info-content">
+                        <span class="info-label">LinkedIn</span>
+                        <a href="@_personal?.LinkedIn" target="_blank" class="info-link">Ver Perfil</a>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </div>
+                    <div class="info-content">
+                        <span class="info-label">GitHub</span>
+                        <a href="@_personal?.Github" target="_blank" class="info-link">Ver Perfil</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="contact-form-wrapper">
+                <form class="contact-form" @onsubmit="OnSubmit">
+                    <div class="form-group">
+                        <label for="name" class="form-label">Nombre</label>
+                        <input type="text" id="name" class="form-input" @bind="_form.Name" required />
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" id="email" class="form-input" @bind="_form.Email" required />
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message" class="form-label">Mensaje</label>
+                        <textarea id="message" class="form-textarea" @bind="_form.Message" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn" disabled="@_isSubmitting">
+                        @if (_isSubmitting)
+                        {
+                            <span class="spinner"></span>
+                            <span>Enviando...</span>
+                        }
+                        else
+                        {
+                            <span>Enviar Mensaje</span>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="22" y1="2" x2="11" y2="13"/>
+                                <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                            </svg>
+                        }
+                    </button>
+                    
+                    @if (_submitSuccess)
+                    {
+                        <div class="success-message">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                <polyline points="22 4 12 14.01 9 11.01"/>
+                            </svg>
+                            <span>Mensaje enviado correctamente. ¡Gracias!</span>
+                        </div>
+                    }
+                </form>
+            </div>
+        </div>
+    </section>
+</div>
+
+@code {
+    private PortfolioData? _data;
+    private PersonalInfo? _personal;
+    private FormModel _form = new();
+    private bool _isSubmitting;
+    private bool _submitSuccess;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _data = await DataService.GetDataAsync();
+        _personal = _data?.Personal;
+    }
+
+    private async Task OnSubmit()
+    {
+        _isSubmitting = true;
+        await Task.Delay(1000);
+        _submitSuccess = true;
+        _isSubmitting = false;
+        _form = new();
+    }
+
+    private class FormModel
+    {
+        public string Name { get; set; } = "";
+        public string Email { get; set; } = "";
+        public string Message { get; set; } = "";
+    }
+}
+
+<style>
+    .contact-page {
+        padding: var(--spacing-3xl) 0;
+    }
+
+    .section-header {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-lg);
+        margin-bottom: var(--spacing-md);
+    }
+
+    .section-label {
+        font-family: var(--font-display);
+        font-size: 0.875rem;
+        color: var(--color-accent);
+        padding: var(--spacing-sm) var(--spacing-md);
+        background: rgba(34, 211, 238, 0.1);
+        border: 1px solid rgba(34, 211, 238, 0.2);
+        border-radius: var(--radius-md);
+    }
+
+    .section-title {
+        font-size: clamp(1.75rem, 4vw, 2.5rem);
+        color: var(--color-text);
+    }
+
+    .section-description {
+        color: var(--color-text-muted);
+        font-size: 1.0625rem;
+        max-width: 600px;
+        margin-bottom: var(--spacing-3xl);
+    }
+
+    .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1.5fr;
+        gap: var(--spacing-3xl);
+    }
+
+    .contact-info {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-lg);
+    }
+
+    .info-card {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-lg);
+        padding: var(--spacing-lg);
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-lg);
+        transition: all var(--transition-base);
+    }
+
+    .info-card:hover {
+        border-color: var(--color-accent);
+        transform: translateX(8px);
+    }
+
+    .info-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 48px;
+        height: 48px;
+        background: rgba(34, 211, 238, 0.1);
+        border-radius: var(--radius-md);
+        color: var(--color-accent);
+    }
+
+    .info-content {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-xs);
+    }
+
+    .info-label {
+        font-family: var(--font-display);
+        font-size: 0.75rem;
+        color: var(--color-text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+    }
+
+    .info-value {
+        font-size: 0.9375rem;
+        color: var(--color-text);
+    }
+
+    .info-link {
+        font-size: 0.9375rem;
+        color: var(--color-accent);
+        transition: color var(--transition-fast);
+    }
+
+    .info-link:hover {
+        color: var(--color-text);
+    }
+
+    .contact-form-wrapper {
+        padding: var(--spacing-xl);
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-lg);
+    }
+
+    .contact-form {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-lg);
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-sm);
+    }
+
+    .form-label {
+        font-family: var(--font-display);
+        font-size: 0.8125rem;
+        color: var(--color-text-secondary);
+    }
+
+    .form-input,
+    .form-textarea {
+        padding: var(--spacing-md);
+        background: var(--color-bg);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-md);
+        color: var(--color-text);
+        font-family: var(--font-body);
+        font-size: 0.9375rem;
+        transition: all var(--transition-fast);
+    }
+
+    .form-input:focus,
+    .form-textarea:focus {
+        outline: none;
+        border-color: var(--color-accent);
+        box-shadow: 0 0 0 3px var(--color-accent-glow);
+    }
+
+    .form-input::placeholder,
+    .form-textarea::placeholder {
+        color: var(--color-text-muted);
+    }
+
+    .form-textarea {
+        min-height: 150px;
+        resize: vertical;
+    }
+
+    .submit-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--spacing-sm);
+        padding: var(--spacing-md) var(--spacing-xl);
+        background: var(--color-accent);
+        border: none;
+        border-radius: var(--radius-md);
+        color: var(--color-bg);
+        font-family: var(--font-display);
+        font-size: 0.9375rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all var(--transition-base);
+    }
+
+    .submit-btn:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(34, 211, 238, 0.3);
+    }
+
+    .submit-btn:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+    }
+
+    .spinner {
+        width: 18px;
+        height: 18px;
+        border: 2px solid transparent;
+        border-top-color: var(--color-bg);
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+    }
+
+    .success-message {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-sm);
+        padding: var(--spacing-md);
+        background: rgba(74, 222, 128, 0.1);
+        border: 1px solid rgba(74, 222, 128, 0.3);
+        border-radius: var(--radius-md);
+        color: var(--color-success);
+        font-size: 0.9375rem;
+    }
+</style>

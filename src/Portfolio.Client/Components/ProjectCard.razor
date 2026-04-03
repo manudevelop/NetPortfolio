@@ -1,0 +1,32 @@
+<article class="project-card" @key="Project.Id">
+    @if (Project.IsFeatured)
+    {
+        <div class="project-badge">Featured</div>
+    }
+    <h3 class="project-title">@Project.Title</h3>
+    <p class="project-description">@Project.Description</p>
+    <div class="project-techs">
+        @foreach (var tech in Project.Technologies)
+        {
+            <span class="tech-tag">@tech</span>
+        }
+    </div>
+    <div class="project-links">
+        @if (!string.IsNullOrEmpty(Project.GithubUrl))
+        {
+            <a href="@Project.GithubUrl" target="_blank" rel="noopener noreferrer" class="project-link">
+                GitHub
+            </a>
+        }
+        @if (!string.IsNullOrEmpty(Project.DemoUrl))
+        {
+            <a href="@Project.DemoUrl" target="_blank" rel="noopener noreferrer" class="project-link">
+                Demo
+            </a>
+        }
+    </div>
+</article>
+
+@code {
+    [Parameter] public Project Project { get; set; } = default!;
+}

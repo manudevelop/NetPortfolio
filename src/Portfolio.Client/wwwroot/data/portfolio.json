@@ -1,0 +1,90 @@
+{
+  "personal": {
+    "name": "Manuel David Ruiz Rubio",
+    "title": "Senior Software Engineer",
+    "tagline": "14 años creando soluciones escalables con .NET",
+    "email": "manolo.developer@gmail.com",
+    "github": "https://github.com/manolodeveloper",
+    "linkedin": "https://linkedin.com/in/manolodeveloper",
+    "location": "Córdoba, España",
+    "phone": "+34 684 218 218"
+  },
+  "skills": [
+    { "name": ".NET 8+", "category": "Backend", "level": 5 },
+    { "name": "ASP.NET Core", "category": "Backend", "level": 5 },
+    { "name": "REST APIs", "category": "Backend", "level": 5 },
+    { "name": "SOAP", "category": "Backend", "level": 4 },
+    { "name": "OAS / Swagger", "category": "Backend", "level": 5 },
+    { "name": "JWT / API Keys", "category": "Backend", "level": 5 },
+    { "name": "Blazor", "category": "Frontend", "level": 4 },
+    { "name": "WPF (MVVM)", "category": "Frontend", "level": 4 },
+    { "name": "HTML/CSS", "category": "Frontend", "level": 3 },
+    { "name": "SQL Server", "category": "Database", "level": 5 },
+    { "name": "T-SQL", "category": "Database", "level": 5 },
+    { "name": "EF Core", "category": "Database", "level": 4 },
+    { "name": "PostgreSQL", "category": "Database", "level": 3 },
+    { "name": "Azure", "category": "Cloud", "level": 3 },
+    { "name": "Clean Architecture", "category": "Architecture", "level": 5 },
+    { "name": "SOA / Microservicios", "category": "Architecture", "level": 5 },
+    { "name": "Event-Driven", "category": "Architecture", "level": 4 },
+    { "name": "SOLID", "category": "Architecture", "level": 5 },
+    { "name": "GitFlow", "category": "DevOps", "level": 4 },
+    { "name": "GitHub Actions", "category": "DevOps", "level": 4 },
+    { "name": "Docker", "category": "DevOps", "level": 3 },
+    { "name": "Integration Testing", "category": "DevOps", "level": 4 }
+  ],
+  "projects": [
+    {
+      "id": "erp-modernization",
+      "title": "Modernización de ERP Legacy (API-First)",
+      "description": "Desacoplamiento de ERP monolítico mediante capa API REST local. Documentación OAS 3.0 y Swagger 2.0. Validaciones con patrón Specification.",
+      "technologies": [".NET", "REST", "OAS 3.0", "ADO.NET", "Custom ORM", "Specification Pattern"],
+      "githubUrl": null,
+      "demoUrl": null,
+      "isFeatured": true
+    },
+    {
+      "id": "multitenant-platform",
+      "title": "Plataforma Multitenant (+5.000 usuarios)",
+      "description": "Diseño integral de arquitectura backend con soporte nativo para multitenancy. Gestión de errores centralizada y preparación para escalabilidad horizontal.",
+      "technologies": [".NET", "ASP.NET Core", "SQL Server", "JWT"],
+      "githubUrl": null,
+      "demoUrl": null,
+      "isFeatured": true
+    },
+    {
+      "id": "monitoring-system",
+      "title": "Sistema de Monitoreo y Despliegue",
+      "description": "Herramienta integral para monitoreo y despliegue en clientes finales. +100 servicios monitorizados en tiempo real.",
+      "technologies": ["WPF", "MVVM", "ASP.NET Core", ".NET", "Swagger 2.0"],
+      "githubUrl": null,
+      "demoUrl": null,
+      "isFeatured": false
+    },
+    {
+      "id": "verifactu",
+      "title": "Integración con VERI*FACTU",
+      "description": "Servicio de envío inmediato de facturación a Hacienda. Dashboard web con actualización en tiempo real mediante SSE. Audit-Trail con encadenamiento.",
+      "technologies": [".NET", "REST", "SSE", "SQL Server", "SOAP", "HTML/CSS"],
+      "githubUrl": null,
+      "demoUrl": null,
+      "isFeatured": true
+    }
+  ],
+  "experience": [
+    {
+      "company": "Subbética de Informática y Sistemas S.L.",
+      "role": "Software Architect / Senior .NET Developer",
+      "startDate": "2012-01-01",
+      "endDate": null,
+      "description": "Responsable de la evolución tecnológica de la plataforma, liderando la transición de núcleo monolítico hacia SOA.",
+      "achievements": [
+        "Diseño de APIs REST bajo estándares OAS con políticas de versionado y seguridad JWT/API Keys",
+        "Implementación de patrones Event-Driven mediante sistemas de colas persistentes",
+        "Optimización de acceso a datos con ADO.NET, reduciendo tiempos de respuesta",
+        "Liderazgo técnico: definición de contratos, selección de stack, Clean Architecture",
+        "Mentoría de estudiantes de Grado, FP y FP Dual"
+      ]
+    }
+  ]
+}
