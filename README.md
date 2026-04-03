@@ -26,8 +26,8 @@ src/Portfolio.Client/
 # Build
 dotnet build
 
-# Run dev
-dotnet run --project src/Portfolio.Client
+# Run dev con hot reload
+dotnet watch --project src/Portfolio.Client
 
 # Publish
 dotnet publish src/Portfolio.Client -c Release -o ./publish
