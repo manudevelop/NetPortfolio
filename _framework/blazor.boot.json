@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "Portfolio.Client",
   "resources": {
-    "hash": "sha256-MaOID1ZwJjuWcpqlOCme4OtqoQ814/goziGx5xSYLUo=",
+    "hash": "sha256-sGhZ/b4KJxQXXzqHtV0CvDJz0yGFgULUeRRbb5zJOKA=",
     "jsModuleNative": {
       "dotnet.native.js": "sha256-A16ka545FHaB+QXjyJ4exXh7XpBAAIFnX8YkC4xAng8="
     },
@@ -53,7 +53,7 @@
       "System.Text.Json.wasm": "sha256-gsjvhI718qxQovDi686sxRbRo5lU445uSBjGMm4m91c=",
       "System.Text.RegularExpressions.wasm": "sha256-j07IrGQE9C1/KwcCftDb+nntWF1dA7zGFDf2gHa0aWI=",
       "System.Private.CoreLib.wasm": "sha256-HfdJsgKviab2a6XNZsZUl2F2oK7F2koJhwVivM4KIz4=",
-      "Portfolio.Client.wasm": "sha256-5fEHQUTGr+laIUmalqViQgKNPviV5X4qqhK2wJm/z5g="
+      "Portfolio.Client.wasm": "sha256-8PDFmAJIzE9cofcnegCOYMOWu5/n0o+95MVFyTu5A/E="
     }
   },
   "cacheBootResources": true,
