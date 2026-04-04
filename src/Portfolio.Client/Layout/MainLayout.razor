@@ -10,27 +10,29 @@
             </a>
             
             <button class="mobile-toggle" @onclick="ToggleNav" aria-label="Toggle menu">
-                <span class="hamburger"></span>
+                <span class="hamburger @(_isNavOpen ? "open" : "")"></span>
             </button>
 
+            <div class="nav-overlay @(_isNavOpen ? "open" : "")" @onclick="CloseNav"></div>
+            
             <div class="nav-links @(_isNavOpen ? "open" : "")">
-                <NavLink href="" Match="NavLinkMatch.All" class="nav-link">
+                <NavLink href="" Match="NavLinkMatch.All" class="nav-link" @onclick="CloseNav">
                     <span class="nav-num">01</span>
                     <span class="nav-text">Inicio</span>
                 </NavLink>
-                <NavLink href="about" class="nav-link">
+                <NavLink href="about" class="nav-link" @onclick="CloseNav">
                     <span class="nav-num">02</span>
                     <span class="nav-text">Sobre mí</span>
                 </NavLink>
-                <NavLink href="projects" class="nav-link">
+                <NavLink href="projects" class="nav-link" @onclick="CloseNav">
                     <span class="nav-num">03</span>
                     <span class="nav-text">Proyectos</span>
                 </NavLink>
-                <NavLink href="experience" class="nav-link">
+                <NavLink href="experience" class="nav-link" @onclick="CloseNav">
                     <span class="nav-num">04</span>
                     <span class="nav-text">Experiencia</span>
                 </NavLink>
-                <NavLink href="contact" class="nav-link">
+                <NavLink href="contact" class="nav-link" @onclick="CloseNav">
                     <span class="nav-num">05</span>
                     <span class="nav-text">Contacto</span>
                 </NavLink>
@@ -158,6 +160,7 @@
         border: none;
         padding: var(--spacing-sm);
         cursor: pointer;
+        z-index: 1001;
     }
 
     .hamburger {
@@ -182,6 +185,75 @@
 
     .hamburger::before { top: -8px; }
     .hamburger::after { top: 8px; }
+
+    .hamburger.open {
+        background: transparent;
+    }
+
+    .hamburger.open::before {
+        top: 0;
+        transform: rotate(45deg);
+        background: var(--color-accent);
+    }
+
+    .hamburger.open::after {
+        top: 0;
+        transform: rotate(-45deg);
+        background: var(--color-accent);
+    }
+
+    .nav-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 999;
+        opacity: 0;
+        transition: opacity var(--transition-normal);
+    }
+
+    .nav-overlay.open {
+        display: block;
+        opacity: 1;
+    }
+
+    @@media (max-width: 768px) {
+        .mobile-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-links {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 280px;
+            height: 100vh;
+            flex-direction: column;
+            background: var(--color-surface);
+            border-left: 1px solid var(--color-border);
+            padding: 100px var(--spacing-lg) var(--spacing-lg);
+            gap: var(--spacing-lg);
+            transition: right var(--transition-normal);
+            z-index: 1000;
+        }
+
+        .nav-links.open {
+            right: 0;
+        }
+
+        .nav-link {
+            flex-direction: row;
+            font-size: 1.125rem;
+            padding: var(--spacing-md) 0;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .nav-num {
+            font-size: 0.875rem;
+        }
+    }
 
     .main-content {
         flex: 1;
@@ -277,5 +349,10 @@
     private void ToggleNav()
     {
         _isNavOpen = !_isNavOpen;
+    }
+
+    private void CloseNav()
+    {
+        _isNavOpen = false;
     }
 }

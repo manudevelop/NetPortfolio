@@ -66,7 +66,7 @@
                 </div>
             </div>
             
-            <div class="contact-form-wrapper">
+            @* <div class="contact-form-wrapper">
                 <form class="contact-form" @onsubmit="OnSubmit">
                     <div class="form-group">
                         <label for="name" class="form-label">Nombre</label>
@@ -110,7 +110,7 @@
                         </div>
                     }
                 </form>
-            </div>
+            </div> *@
         </div>
     </section>
 </div>
@@ -347,5 +347,45 @@
         border-radius: var(--radius-md);
         color: var(--color-success);
         font-size: 0.9375rem;
+    }
+
+    @@media (max-width: 768px) {
+        .contact-page {
+            padding: var(--spacing-xl) 0;
+        }
+
+        .contact-grid {
+            grid-template-columns: 1fr;
+            gap: var(--spacing-xl);
+        }
+
+        .info-card {
+            padding: var(--spacing-md);
+            gap: var(--spacing-md);
+        }
+
+        .info-icon {
+            width: 40px;
+            height: 40px;
+        }
+
+        .contact-form-wrapper {
+            padding: var(--spacing-lg);
+        }
+    }
+
+    @@media (max-width: 480px) {
+        .section-description {
+            font-size: 1rem;
+        }
+
+        .info-label {
+            font-size: 0.6875rem;
+        }
+
+        .info-value,
+        .info-link {
+            font-size: 0.875rem;
+        }
     }
 </style>

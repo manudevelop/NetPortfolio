@@ -295,4 +295,51 @@
         border-radius: var(--radius-full);
         transition: width var(--transition-slow);
     }
+
+    @@media (max-width: 768px) {
+        .about-page {
+            padding: var(--spacing-xl) 0;
+        }
+
+        .content-grid {
+            grid-template-columns: 1fr;
+            gap: var(--spacing-xl);
+        }
+
+        .profile-card {
+            max-width: 280px;
+            margin: 0 auto;
+        }
+
+        .profile-info {
+            margin-top: var(--spacing-md);
+        }
+
+        .bio-text p {
+            font-size: 1rem;
+        }
+
+        .skills-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .skill-category {
+            padding: var(--spacing-md);
+        }
+    }
+
+    @@media (max-width: 480px) {
+        .profile-card {
+            max-width: 100%;
+        }
+
+        .section-label {
+            font-size: 0.75rem;
+            padding: var(--spacing-xs) var(--spacing-sm);
+        }
+
+        .profile-name {
+            font-size: 1.125rem;
+        }
+    }
 </style>
